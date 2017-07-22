@@ -4,6 +4,8 @@ import parser
 
 class Bot(object):
     def __init__(self):
+        self.orders = {}
+        self.order_id = 1
         self.parser = parser.Parser()
         self.holdings =  {}
         self.open = {}
@@ -18,6 +20,17 @@ class Bot(object):
         elif (line["type"] == "close"):
             self.open = parse.parse_closed(line)
         elif (line["type"] == "book"):
-            pass
+            res = parser.parse_books(line, self.order_id)
+            if res[0] == "ex":
+                self.execute_order(res[1])
+            elif res[0] == "info":
+                self.update_info(res[1])
         elif (line["type"] == "trade"):
             pass
+
+    def execute_order(self, order):
+        # Check if came back successful, increment id_counter
+        pass
+
+    def update_info(self, details):
+        pass
