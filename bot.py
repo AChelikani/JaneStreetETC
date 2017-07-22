@@ -4,9 +4,9 @@ import parser
 
 class Bot(object):
     def __init__(self):
+        self.info = {}
         self.orders = {}
         self.order_id = 1
-        self.parser = parser.Parser()
         self.holdings =  {}
         self.open = {}
         for stock in constants.SYMBOLS:
