@@ -18,7 +18,7 @@ class Bot(object):
         elif (line["type"] == "open"):
             self.open = parser.parse_open(line)
         elif (line["type"] == "close"):
-            self.open = parse.parse_closed(line)
+            self.open = parser.parse_closed(line)
         elif (line["type"] == "book"):
             res = parser.parse_books(line, self.order_id)
             if res[0] == "ex":
