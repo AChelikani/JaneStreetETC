@@ -8,7 +8,7 @@ def connect(serv_addr, port):
     s.connect((serv_addr, int(port)))
     return (s, s.makefile('rw', 1))
 
-s, exchange = connect("production",25000)
+s, exchange = connect("test-exch-KPCBTRAPHOUSE",25000)
 json_string = '{"type": "hello", "team":"KPCBTRAPHOUSE"}'
 print(json_string, file=exchange)
 
@@ -36,13 +36,13 @@ while (True):
             print(json.dumps(json_string), file=exchange)
             f.write("sold " + str(trade_counter) + " " + str(msg["buy"][0][0]) + " " + str(msg["buy"][0][1]) + "\n")
             trade_counter += 1
-    if (msg["type"] == "ack"):
-        f.write("trade " + str(msg["order_id"]) + "\n")
-    if (msg["type"] == "book") and msg["symbol"] == "NOKFH"):
-        if (msg["sell"]):
-            adr_buy = msg["sell"][0][0]
-            adr_buy_quant = msg["sell"][0][1]
-        if (msg["buy"]):
-            adr_sell = msg["buy"][0][0]
-            adr_sell_quant = msg["sell"][0][1]
+    # if (msg["type"] == "ack"):
+    #     f.write("trade " + str(msg["order_id"]) + "\n")
+    # if (msg["type"] == "book") and msg["symbol"] == "NOKFH"):
+    #     if (msg["sell"]):
+    #         adr_buy = msg["sell"][0][0]
+    #         adr_buy_quant = msg["sell"][0][1]
+    #     if (msg["buy"]):
+    #         adr_sell = msg["buy"][0][0]
+    #         adr_sell_quant = msg["sell"][0][1]
     print(msg, file = sys.stderr)
