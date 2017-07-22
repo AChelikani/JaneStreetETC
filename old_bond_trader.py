@@ -12,7 +12,7 @@ s, exchange = connect("production",25000)
 json_string = '{"type": "hello", "team":"KPCBTRAPHOUSE"}'
 print(json_string, file=exchange)
 
-f = open('log.txt', 'w')
+#f = open('log.txt', 'w')
 
 trade_counter = 1
 owned_bond_shares = 0
@@ -27,14 +27,14 @@ while (True):
         if (msg["sell"] and msg["sell"][0][0] < 1000 and owned_bond_shares + msg["sell"][0][1] < 100):
             json_string = {"type" : "add", "order_id" : trade_counter, "symbol" : "BOND", "dir" : "BUY", "price" : msg["sell"][0][0], "size" : msg["sell"][0][1]}
             owned_bond_shares += msg["sell"][0][1]
-            print(json.dumps(json_string), file=exchange)
-            f.write("bought " + str(trade_counter) + " " + str(msg["sell"][0][0]) + " " + str(msg["sell"][0][1]) + "\n")
+            #print(json.dumps(json_string), file=exchange)
+            #f.write("bought " + str(trade_counter) + " " + str(msg["sell"][0][0]) + " " + str(msg["sell"][0][1]) + "\n")
             trade_counter += 1
         if (msg["buy"] and msg["buy"][0][0] > 1000 and owned_bond_shares > 0):
             json_string = {"type" : "add", "order_id" : trade_counter, "symbol" : "BOND", "dir" : "SELL", "price" : msg["buy"][0][0], "size" : msg["buy"][0][1]}
             owned_bond_shares -= msg["buy"][0][1]
-            print(json.dumps(json_string), file=exchange)
-            f.write("sold " + str(trade_counter) + " " + str(msg["buy"][0][0]) + " " + str(msg["buy"][0][1]) + "\n")
+            #print(json.dumps(json_string), file=exchange)
+            #f.write("sold " + str(trade_counter) + " " + str(msg["buy"][0][0]) + " " + str(msg["buy"][0][1]) + "\n")
             trade_counter += 1
     if (msg["type"] == "ack"):
         f.write("trade " + str(msg["order_id"]) + "\n")
